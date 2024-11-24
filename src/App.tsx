@@ -9,6 +9,7 @@ import Search from "./pages/Search";
 import Hospitals from "./pages/Hospitals";
 import Achievements from "./pages/Achievements";
 import Profile from "./pages/Profile";
+import NewRequest from "./pages/NewRequest";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/hospitals" element={<Hospitals />} />
             <Route path="/achievements" element={<Achievements />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/new-request" element={<NewRequest />} />
           </Routes>
           <Navigation />
         </div>

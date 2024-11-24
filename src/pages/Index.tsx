@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface BloodRequest {
   id: number;
@@ -13,6 +14,7 @@ interface BloodRequest {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [requests] = useState<BloodRequest[]>([
     {
       id: 1,
@@ -36,7 +38,10 @@ const Index = () => {
     <div className="pb-20 animate-fade-in">
       <div className="flex justify-between items-center mb-6 px-4">
         <h1 className="text-2xl font-bold">Blood Requests</h1>
-        <Button className="bg-primary hover:bg-red-700">
+        <Button 
+          className="bg-primary hover:bg-red-700"
+          onClick={() => navigate("/new-request")}
+        >
           <Plus className="w-4 h-4 mr-2" />
           New Request
         </Button>
