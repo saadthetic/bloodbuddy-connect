@@ -3,7 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import Navigation from "./components/Navigation";
+import Header from "./components/Header";
 import Index from "./pages/Index";
 import Search from "./pages/Search";
 import Hospitals from "./pages/Hospitals";
@@ -15,23 +17,28 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/hospitals" element={<Hospitals />} />
-            <Route path="/achievements" element={<Achievements />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/new-request" element={<NewRequest />} />
-          </Routes>
-          <Navigation />
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+            <Header />
+            <div className="pt-14 pb-20">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/hospitals" element={<Hospitals />} />
+                <Route path="/achievements" element={<Achievements />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/new-request" element={<NewRequest />} />
+              </Routes>
+            </div>
+            <Navigation />
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
