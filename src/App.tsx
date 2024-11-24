@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
@@ -13,7 +13,15 @@ import Achievements from "./pages/Achievements";
 import Profile from "./pages/Profile";
 import NewRequest from "./pages/NewRequest";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -32,6 +40,7 @@ const App = () => (
                 <Route path="/achievements" element={<Achievements />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/new-request" element={<NewRequest />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
             <Navigation />

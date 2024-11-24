@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 interface BloodRequest {
   id: number;
@@ -15,6 +16,7 @@ interface BloodRequest {
 
 const Index = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [requests] = useState<BloodRequest[]>([
     {
       id: 1,
@@ -33,6 +35,13 @@ const Index = () => {
       hospital: "LA Medical Center"
     }
   ]);
+
+  const handleContact = () => {
+    toast({
+      title: "Contact initiated",
+      description: "The donor will be notified of your request.",
+    });
+  };
 
   return (
     <div className="pb-20 animate-fade-in">
@@ -63,7 +72,12 @@ const Index = () => {
                 <p className="mt-1 text-sm font-medium text-orange-500">{request.urgency} Priority</p>
               </div>
             </div>
-            <Button className="w-full mt-4 bg-primary hover:bg-red-700">Contact</Button>
+            <Button 
+              className="w-full mt-4 bg-primary hover:bg-red-700"
+              onClick={handleContact}
+            >
+              Contact
+            </Button>
           </Card>
         ))}
       </div>
